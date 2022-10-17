@@ -1,27 +1,24 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Util {
-    private static SessionFactory sessionFactory;
+//    private static SessionFactory sessionFactory;
 
-    static {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
-    }
+//    static {
+//        Configuration configuration = new Configuration().addAnnotatedClass(User1.class);
+//        SessionFactory sessionFactory = configuration.buildSessionFactory();
+//    }
 
     public static SessionFactory getSessionFactory() {
+        Configuration configuration = new Configuration().addAnnotatedClass(User.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
         return sessionFactory;
     }
 
@@ -34,7 +31,6 @@ public class Util {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 }

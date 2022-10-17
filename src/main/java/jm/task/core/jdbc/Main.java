@@ -1,11 +1,8 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
-import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.util.Util;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
+
+
 
 public class Main {
     public static void main(String[] args) {
@@ -21,28 +18,27 @@ public class Main {
 //        }
 //        dao.cleanUsersTable();
 //        dao.dropUsersTable();
+//        Configuration configuration = new Configuration().addAnnotatedClass(User1.class);
+//        SessionFactory sessionFactory = configuration.buildSessionFactory();
 
-        SessionFactory sessionFactory = Util.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        String sql = "CREATE TABLE IF NOT EXISTS users " +
-                "(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-                "name VARCHAR(50) NOT NULL, lastName VARCHAR(50) NOT NULL, " +
-                "age TINYINT NOT NULL)";
-
-        Query query = session.createSQLQuery("CREATE TABLE IF NOT EXISTS users " +
-                "(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-                "name VARCHAR(50) NOT NULL," +
-                "lastName VARCHAR(50) NOT NULL, " +
-                "age TINYINT NOT NULL)");
-
-//        String sql = "DROP TABLE IF EXISTS users";
+//        SessionFactory sessionFactory = Util.getSessionFactory();
+//        Session session = sessionFactory.getCurrentSession();
 //
-//        Query query = session.createSQLQuery(sql);
+//        try {
+//            session.beginTransaction();
+//
+//
+//
+//
+//            session.getTransaction().commit();
+//        } finally {
+//            sessionFactory.close();
+//        }
 
-        session.getTransaction().commit();
-        sessionFactory.close();
+        UserDaoHibernateImpl dao = new UserDaoHibernateImpl();
+        dao.dropUsersTable();
+
+
 
 
 
