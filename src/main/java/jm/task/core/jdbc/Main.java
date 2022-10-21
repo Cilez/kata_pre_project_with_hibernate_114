@@ -36,11 +36,6 @@ public class Main {
 //        }
 
         UserDaoHibernateImpl dao = new UserDaoHibernateImpl();
-        dao.dropUsersTable();
-
-
-
-
-
+        dao.createUsersTable();
     }
 }
